@@ -1,0 +1,53 @@
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #ddd;
+}
+
+.navbar-btn{
+  margin: 0px;
+  margin-top: 6px;
+  padding: 3px;
+}
+
+.navbar{
+  background: white;
+  padding: 0px;
+}
+
+.nav_container {
+  margin-top: 0px;
+}
+/* Header/Blog Title */
+.blog_name {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+.card{
+  margin-top: 20px;
+  background: white;
+  padding: 10px;
+}
+.card-header{
+  margin-bottom: 5px;
+}
+/* Footer */
+.footer {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  margin-top: 20px;
+}
+
+.card-text{
+  overflow: hidden;
+  height: 60px;
+}
+.leave_reply{
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: x-large;
+}

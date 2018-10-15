@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MY BLOG</title>
+</head>
+<body>
+    <a href="{%  url 'new_post' %}"> <button>New Post</button></a>
+    <ul>
+      {% for post in all_posts %}
+        <li><a href="{%  url 'specific_post' post.pk %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>-->
+
+{% block nav_bar %}
+		      <li class="active"><a href="{%  url 'first_page' %}">Home</a></li>
+		      <li><a href="{%  url 'all_post' %}">All Posts </a></li>
+{% endblock %}
+
+{% block post_card %}
+<div class="col-lg-9 col-md-9">
+    {% for post in posts_2 %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.updated_on }}</h6>
+            <p class="card-text">{{ post.body }}</p>
+            <a href="{%  url 'specific_post' all_posts.0.pk %}" class="card-link">Load more ...</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

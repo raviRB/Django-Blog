@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block nav_bar %}
+		      <li><a href="{%  url 'first_page' %}">Home</a></li>
+		      <li><a href="{%  url 'all_post' %}">All Posts </a></li>
+{% endblock %}
+
+
+{% block post_card %}
+<div class="col-lg-9 col-md-9">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.updated_on }}</h6>
+            <p >{{ post.body }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block row_2 %}
+
+{% for comment in post.comment.all %}
+<div class="card" >
+  <div class="card-body">
+      <h5 class="card-title"><strong>{{ comment.user_name }}</strong> says...</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on }}</h6>
+    <p class="comment_text">{{ comment.message }}</p>
+  </div>
+</div>
+    <p></p>
+{% endfor %}
+
+<div class="leave_reply">
+    <strong>Leave a Reply ....</strong>
+</div>
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+
+        {% render_field field class="form-control" %}
+
+        {% if field.help_text %}
+          <small class="form-text text-muted">
+            {{ field.help_text }}
+          </small>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Post</button>
+  </form>
+{% endblock %}

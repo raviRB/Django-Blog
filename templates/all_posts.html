@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block nav_bar %}
+		      <li ><a href="{%  url 'first_page' %}">Home</a></li>
+		      <li class="active"><a href="{%  url 'all_post' %}">All Posts </a></li>
+{% endblock %}
+
+{% block post_card %}
+<div class="col-lg-9 col-md-9">
+{%  for post in all_posts %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.updated_on }}</h6>
+            <p class="card-text">{{ post.body }}</p>
+            <a href="{%  url 'specific_post' post.pk %}" class="card-link">Load more ...</a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

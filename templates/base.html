@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>My Blog </title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<body>
+
+	 <div class="header">
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid nav_container">
+		    <ul class="nav navbar-nav">
+				{% block nav_bar %}
+				{% endblock %}
+		    </ul>
+            <p class="navbar-btn navbar-right">
+                    <a href="#" class="btn btn-default">Login</a>
+		  </div>
+		</nav>
+  		<div class="blog_name">
+  			<h2>Blog Name</h2>
+  		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			{% block post_card %}
+            {% endblock %}
+			<div class="col-lg-3 col-md-3">
+				<div class="card">
+				  <div class="card-body">
+				    <h5 class="card-title">Card title</h5>
+				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				    <a href="#" class="card-link">Card link</a>
+				  </div>
+				</div>
+				<div class="card">
+				  <div class="card-header">
+				    <strong>Popular Posts</strong>
+				  </div>
+				  <ul class="list-group list-group-flush">
+				    {% for post in all_posts %}
+                    <li class="list-group-item"><a href="{%  url 'specific_post' post.pk %}">{{ post.title }}</a></li>
+                    {% endfor %}
+				  </ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+            <div class="col-lg-9 col-md-9">
+                {% block row_2 %}
+        	    {% endblock %}
+            </div>
+		</div>
+	</div>
+	<div class="footer">
+  		<h4>Developed By :- Ravi Bhatt</h4>
+	</div>
+</body>
+</html>
