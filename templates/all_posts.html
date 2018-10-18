@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
+{% block navbar_right %}
+{% endblock %}
 
-{% block nav_bar %}
-		      <li ><a href="{%  url 'first_page' %}">Home</a></li>
-		      <li class="active"><a href="{%  url 'all_post' %}">All Posts </a></li>
+
+{% block navbar_left %}
+<li ><a href="{%  url 'first_page' %}">Home</a></li>
+<li class="active"><a href="{%  url 'all_post' %}">All Posts </a></li>
 {% endblock %}
 
 {% block post_card %}

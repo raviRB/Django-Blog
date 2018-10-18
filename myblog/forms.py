@@ -3,8 +3,8 @@ from .models import Posts, Comments
 
 
 class NewPostForm(forms.ModelForm):
-    body = forms.CharField(widget=forms.Textarea(), max_length=4000)
-
+    body = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Post Body ...'}), max_length=4000)
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Post Heading ...'}))
 
     class Meta:
         model = Posts
@@ -18,3 +18,7 @@ class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Comments
         fields = ['user_name', 'email' , 'message']
+
+class AdminLogin(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password'}))

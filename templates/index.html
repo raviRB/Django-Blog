@@ -16,10 +16,11 @@
 </body>
 </html>-->
 
-{% block nav_bar %}
-		      <li class="active"><a href="{%  url 'first_page' %}">Home</a></li>
-		      <li><a href="{%  url 'all_post' %}">All Posts </a></li>
+{% block navbar_left %}
+<li class="active"><a href="{%  url 'first_page' %}">Home</a></li>
+<li><a href="{%  url 'all_post' %}">All Posts </a></li>
 {% endblock %}
+
 
 {% block post_card %}
 <div class="col-lg-9 col-md-9">

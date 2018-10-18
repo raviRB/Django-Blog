@@ -51,3 +51,17 @@ body {
   margin-bottom: 10px;
   font-size: x-large;
 }
+
+.form-inline{
+    margin-bottom: 00px;
+}
+.replyButton{
+    margin-bottom: 00px;
+}
+.new-post-form{
+    margin-top : 20px;
+    }
+.new-post-row{
+    margin-left: 10%;
+    margin-right: 10%;
+}
