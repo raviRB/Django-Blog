@@ -5,10 +5,10 @@
 {% block navbar_right %}
 {% endblock %}
 
-
 {% block navbar_left %}
 <li ><a href="{%  url 'first_page' %}">Home</a></li>
-<li ><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li class="active"><a href="#">Post</a></li>
 {% endblock %}
 
 {% block post_card %}
@@ -16,7 +16,8 @@
     <div class="card">
         <div class="card-body">
             <h3 class="card-title">{{ post.title }}</h3>
-            <h6 class="card-subtitle mb-2 text-muted">{{ post.updated_on }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.created_on }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted"> last edited : - {{ post.updated_on }}</h6>
             <p >{{ post.body }}</p>
         </div>
     </div>
@@ -32,19 +33,12 @@
       <h5 class="card-title"><strong>{{ comment.user_name }}</strong> says...</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on }}</h6>
     <p class="comment_text">{{ comment.message }}</p>
-      <p class="replyButton" align="right"><button type="submit" class="btn btn-light">Reply</button></p>
+      <p class="replyButton" align="right"><a  class="btn btn-default" onclick="reply({{ comment.pk }})" >Reply</a></p>
   </div>
 </div>
-    <p></p>
-{% endfor %}
-
-<div class="leave_reply">
-    <strong>Leave a Reply ....</strong>
-</div>
-
-<form method="post" novalidate>
+<form  action="{%  url 'comment_reply' comment.pk %}" method="post" novalidate style="display: none" id="{{ comment.pk }}" class="reply" name="reply-form">
     {% csrf_token %}
-    {% for field in form %}
+    {% for field in reply_form %}
       <div class="form-group">
 
         {% render_field field class="form-control" %}
@@ -56,6 +50,37 @@
         {% endif %}
       </div>
     {% endfor %}
-    <button type="submit" class="btn btn-success">Post</button>
+    <button type="submit" class="btn btn-success" name="reply">Reply</button>
+</form>
+{% for reply in comment.reply.all %}
+<div class="card reply" >
+  <div class="card-body">
+      <h5 class="card-title"><strong>{{ reply.user_name }}</strong> replied...</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ reply.created_on }}</h6>
+    <p class="comment_text">{{ reply.message }}</p>
+  </div>
+</div>
+{% endfor %}
+{% endfor %}
+
+<div class="leave_reply">
+    <strong>Leave a Comment ....</strong>
+</div>
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group" id="comment-form">
+
+        {% render_field field class="form-control" %}
+
+        {% if field.help_text %}
+          <small class="form-text text-muted">
+            {{ field.help_text }}
+          </small>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success" name="comment">Comment</button>
 </form>
 {% endblock %}

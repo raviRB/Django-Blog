@@ -6,7 +6,7 @@ body {
 
 .navbar-btn{
   margin: 0px;
-  margin-top: 6px;
+  margin-top: 5px;
   padding: 3px;
 }
 
@@ -64,4 +64,14 @@ body {
 .new-post-row{
     margin-left: 10%;
     margin-right: 10%;
+}
+.reply{
+    margin-left: 40px;
+}
+.profile-image{
+   max-width: 100%;
+   height: auto;
+   padding: 0px;
+   margin: 0px;
+
 }

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block blog-name %}
+{% endblock %}
+
+{% block navbar_right %}
+<a class="btn btn-default" href="{%  url 'logout_user' %}">Logout</a>
+{% endblock %}
+
+{% block navbar_left %}
+<li ><a href="{%  url 'first_page' %}">Home</a></li>
+<li class="active"><a href="#">Setting </a></li>
+{% endblock %}
+
+{% block container-body %}
+    <div class="row">
+        <div class="col-lg-9 col-md-9">
+            <form method="post" novalidate class="setting-form" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {% for field in form %}
+                  <div class="form-group" id="comment-form">
+                    {{ field.label_tag }}
+                      {% render_field field class="form-control" %}
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">
+                        {{ field.help_text }}
+                      </small>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success" name="comment">Make Changes</button>
+            </form>
+        </div>
+
+			<div class="col-lg-3 col-md-3">
+				<div class="card " style="margin-top:0px">
+				  <div class="card-body">
+                    {% if blog_detail.image %}
+                      <img class=" profile-image" src="{{ blog_detail.image.url }}" >
+                      {% endif %}
+				    <h5 class="card-title"><strong>About </strong></h5>
+				    <p class="card-text">{{ blog_detail.about_admin }}</p>
+				    <a href={{blog_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
+				  </div>
+				</div>
+				<div class="card">
+				  <div class="card-header">
+				    <strong>All Posts</strong>
+				  </div>
+                  <h6 class="card-subtitle mb-2 text-muted">Click on the post heading to update it </h6>
+				  <ul class="list-group list-group-flush">
+				    {% for post in all_posts %}
+                    <li class="list-group-item"><a href="{%  url 'edit_post' post.pk %}">{{ post.title }}</a></li>
+                    {% endfor %}
+				  </ul>
+				</div>
+			</div>
+		</div>
+        {% endblock container-body %}

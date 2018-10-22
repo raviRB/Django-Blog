@@ -1,21 +1,5 @@
 
 {% extends 'base.html' %}
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MY BLOG</title>
-</head>
-<body>
-    <a href="{%  url 'new_post' %}"> <button>New Post</button></a>
-    <ul>
-      {% for post in all_posts %}
-        <li><a href="{%  url 'specific_post' post.pk %}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
-</body>
-</html>-->
-
 {% block navbar_left %}
 <li class="active"><a href="{%  url 'first_page' %}">Home</a></li>
 <li><a href="{%  url 'all_post' %}">All Posts </a></li>
