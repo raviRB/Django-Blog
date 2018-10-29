@@ -1,4 +1,4 @@
-document.getElementById("id_image").className = " ";
+document.getElementById("id_profile_pic").className = " ";
 function reply(pk){
     id = pk;
     console.log(id);

@@ -18,17 +18,35 @@
         <div class="col-lg-9 col-md-9">
             <form method="post" novalidate class="setting-form" enctype="multipart/form-data" >
                 {% csrf_token %}
-                {% for field in form %}
-                  <div class="form-group" id="comment-form">
-                    {{ field.label_tag }}
-                      {% render_field field class="form-control" %}
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">
-                        {{ field.help_text }}
-                      </small>
-                    {% endif %}
-                  </div>
-                {% endfor %}
+                 {% for field in form %}
+                    <div class="form-group">
+                      {{ field.label_tag }}
+
+                      {% if form.is_bound %}
+                        {% if field.errors %}
+
+                          {% render_field field class="form-control is-invalid" %}
+                          {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                              {{ error }}
+                            </div>
+                          {% endfor %}
+
+                        {% else %}
+                          {% render_field field class="form-control is-valid" %}
+                        {% endif %}
+                      {% else %}
+                        {% render_field field class="form-control" %}
+                      {% endif %}
+
+                      {% if field.help_text %}
+                        <small class="form-text text-muted">
+                          {{ field.help_text }}
+                        </small>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+
                 <button type="submit" class="btn btn-success" name="comment">Make Changes</button>
             </form>
         </div>
@@ -36,12 +54,12 @@
 			<div class="col-lg-3 col-md-3">
 				<div class="card " style="margin-top:0px">
 				  <div class="card-body">
-                    {% if blog_detail.image %}
-                      <img class=" profile-image" src="{{ blog_detail.image.url }}" >
+                    {% if user_detail.profile_pic %}
+                      <img class=" profile-image" src="{{ user_detail.profile_pic.url }}" >
                       {% endif %}
 				    <h5 class="card-title"><strong>About </strong></h5>
-				    <p class="card-text">{{ blog_detail.about_admin }}</p>
-				    <a href={{blog_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
+				    <p class="card-text">{{ user_detail.about_user }}</p>
+				    <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
 				  </div>
 				</div>
 				<div class="card">

@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
-
-{% block navbar_right %}
-{% endblock %}
-
 {% block navbar_left %}
 <li ><a href="{%  url 'first_page' %}">Home</a></li>
 <li><a href="{%  url 'all_post' %}">All Posts </a></li>
@@ -68,19 +64,37 @@
 </div>
 
 <form method="post" novalidate>
-    {% csrf_token %}
-    {% for field in form %}
-      <div class="form-group" id="comment-form">
+  {% csrf_token %}
 
-        {% render_field field class="form-control" %}
+  {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
 
-        {% if field.help_text %}
-          <small class="form-text text-muted">
-            {{ field.help_text }}
-          </small>
+      {% if form.is_bound %}
+        {% if field.errors %}
+
+          {% render_field field class="form-control is-invalid" %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+
+        {% else %}
+          {% render_field field class="form-control is-valid" %}
         {% endif %}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-success" name="comment">Comment</button>
+      {% else %}
+        {% render_field field class="form-control" %}
+      {% endif %}
+
+      {% if field.help_text %}
+        <small class="form-text text-muted">
+          {{ field.help_text }}
+        </small>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-success">Post</button>
 </form>
 {% endblock %}

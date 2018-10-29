@@ -3,7 +3,7 @@
 {% load static %}
 <html>
 <head>
-	<title>{{ blog_detail.admin_name }}'s Blog </title>
+	<title> Blog </title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -37,7 +37,7 @@
 		</nav>
   		{% block blog-name %}
          <div class="blog_name">
-  			<h2>{{ blog_detail.blog_name }}</h2>
+  			<h2>{{ user_detail.blog_name }}</h2>
   		</div>
          {% endblock %}
 	</div>
@@ -49,12 +49,12 @@
 			<div class="col-lg-3 col-md-3">
 				<div class="card " >
 				  <div class="card-body">
-                    {% if blog_detail.image %}
-                      <img class=" profile-image" src="{{ blog_detail.image.url }}" >
+                    {% if user_detail.profile_pic %}
+                      <img class=" profile-image" src="{{ user_detail.profile_pic.url }}" >
                       {% endif %}
 				    <h5 class="card-title"><strong>About </strong></h5>
-				    <p class="card-text">{{ blog_detail.about_admin }}</p>
-				    <a href={{blog_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
+				    <p class="card-text">{{ user_detail.about_user }}</p>
+				    <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
 				  </div>
 				</div>
 				<div class="card">
