@@ -19,18 +19,9 @@
             <p class="navbar-btn navbar-right">
                 {% block navbar_right %}
                 {% if user.is_authenticated %}
-                     <a class="btn btn-default" href="{%  url 'settings' %}">Setting</a>
-                     <a class="btn btn-default" href="{%  url 'new_post' %}">New Post</a>
-                     <a class="btn btn-default" href="{%  url 'logout_user' %}">Logout</a>
-                     {% else  %}
-                    <form method="post" novalidate class="navbar-btn navbar-right">
-                    {% csrf_token %}
-                     <div class="form-group form-inline">
-                        {% render_field form_login.username class="form-control" %}
-                        {% render_field form_login.password class="form-control" %}
-                         <button type="submit" class="btn btn-light">Admin Login</button>
-                     </div>
-                    </form>
+                     <a class="btn btn-default" href="{%  url 'settings' user.username %}">Setting</a>
+                     <a class="btn btn-default" href="{%  url 'new_post' user.username %}">New Post</a>
+                     <a class="btn btn-default" href="{%  url 'logout' %}">Logout</a>
               {% endif %}
               {% endblock %}
 		  </div>
@@ -63,7 +54,7 @@
 				  </div>
 				  <ul class="list-group list-group-flush">
 				    {% for post in all_posts %}
-                    <li class="list-group-item"><a href="{%  url 'specific_post' post.pk %}">{{ post.title }}</a></li>
+                    <li class="list-group-item"><a href="{%  url 'specific_post' blog_admin post.pk  %}">{{ post.title }}</a></li>
                     {% endfor %}
 				  </ul>
 				</div>

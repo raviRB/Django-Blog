@@ -1,8 +1,8 @@
 
 {% extends 'base.html' %}
 {% block navbar_left %}
-<li class="active"><a href="{%  url 'first_page' %}">Home</a></li>
-<li><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li class="active"><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li><a href="{%  url 'all_post' blog_admin %}">All Posts </a></li>
 {% endblock %}
 
 
@@ -14,7 +14,7 @@
             <h3 class="card-title">{{ post.title }}</h3>
             <h6 class="card-subtitle mb-2 text-muted">{{ post.updated_on }}</h6>
             <p class="card-text">{{ post.body }}</p>
-            <a href="{%  url 'specific_post' all_posts.0.pk %}" class="card-link">Load more ...</a>
+            <a href="{%  url 'specific_post' blog_admin all_posts.0.pk  %}" class="card-link">Load more ...</a>
         </div>
     </div>
     {% endfor %}

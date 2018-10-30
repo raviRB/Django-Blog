@@ -2,13 +2,13 @@
 {% load widget_tweaks %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' %}">Home</a></li>
-<li ><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li ><a href="{%  url 'all_post' blog_admin %}">All Posts </a></li>
 <li class="active"><a href="#">Edit Post </a></li>
 {% endblock %}
 
 {% block navbar_right %}
-<a class="btn btn-default" href="{%  url 'settings' %}">Setting</a>
+<a class="btn btn-default" href="{%  url 'settings' blog_admin %}">Setting</a>
 {% endblock %}
 
 
@@ -33,7 +33,7 @@
               </div>
             {% endfor %}
             <button type="submit" class="btn btn-success">Update </button>
-            <span ><a  class="btn btn-danger" href="{%  url 'delete_post' post.pk %}" >Delete</a></span>
+            <span ><a  class="btn btn-danger" href="{%  url 'delete_post' blog_admin post.pk %}" >Delete</a></span>
         </form>
     </div>
 </div>
@@ -44,7 +44,7 @@
       <h5 class="card-title"><strong>{{ comment.user_name }}</strong> says...</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on }}</h6>
     <p class="comment_text">{{ comment.message }}</p>
-      <p class="replyButton" align="right"><a  class="btn btn-danger" href="{%  url 'delete_comment' comment.pk %}" >Delete</a></p>
+      <p class="replyButton" align="right"><a  class="btn btn-danger" href="{%  url 'delete_comment' blog_admin comment.pk %}" >Delete</a></p>
   </div>
 </div>
 {% for reply in comment.reply.all %}
@@ -53,7 +53,7 @@
       <h5 class="card-title"><strong>{{ reply.user_name }}</strong> replied...</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ reply.created_on }}</h6>
     <p class="comment_text">{{ reply.message }}</p>
-      <p class="replyButton" align="right"><a  class="btn btn-danger" href="{%  url 'delete_reply' reply.pk %}" >Delete</a></p>
+      <p class="replyButton" align="right"><a  class="btn btn-danger" href="{%  url 'delete_reply' blog_admin reply.pk %}" >Delete</a></p>
   </div>
 </div>
 {% endfor %}

@@ -2,8 +2,8 @@
 {% load widget_tweaks %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' %}">Home</a></li>
-<li><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li><a href="{%  url 'all_post' blog_admin %}">All Posts </a></li>
 <li class="active"><a href="#">Post</a></li>
 {% endblock %}
 
@@ -32,7 +32,7 @@
       <p class="replyButton" align="right"><a  class="btn btn-default" onclick="reply({{ comment.pk }})" >Reply</a></p>
   </div>
 </div>
-<form  action="{%  url 'comment_reply' comment.pk %}" method="post" novalidate style="display: none" id="{{ comment.pk }}" class="reply" name="reply-form">
+<form  action="{%  url 'comment_reply' blog_admin comment.pk %}" method="post" novalidate style="display: none" id="{{ comment.pk }}" class="reply" name="reply-form">
     {% csrf_token %}
     {% for field in reply_form %}
       <div class="form-group">

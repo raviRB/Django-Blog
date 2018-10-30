@@ -2,8 +2,8 @@
 {% load widget_tweaks %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' %}">Home</a></li>
-<li ><a href="{%  url 'all_post' %}">All Posts </a></li>
+<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li ><a href="{%  url 'all_post' blog_admin %}">All Posts </a></li>
 <li class="active"><a href="#">New Post </a></li>
 {% endblock %}
 

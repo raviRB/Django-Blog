@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block navbar_right %}
-<a class="btn btn-default" href="{%  url 'logout_user' %}">Logout</a>
+<a class="btn btn-default" href="{%  url 'logout' %}">Logout</a>
 {% endblock %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' %}">Home</a></li>
+<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
 <li class="active"><a href="#">Setting </a></li>
 {% endblock %}
 
@@ -69,7 +69,7 @@
                   <h6 class="card-subtitle mb-2 text-muted">Click on the post heading to update it </h6>
 				  <ul class="list-group list-group-flush">
 				    {% for post in all_posts %}
-                    <li class="list-group-item"><a href="{%  url 'edit_post' post.pk %}">{{ post.title }}</a></li>
+                    <li class="list-group-item"><a href="{%  url 'edit_post' blog_admin post.pk %}">{{ post.title }}</a></li>
                     {% endfor %}
 				  </ul>
 				</div>
