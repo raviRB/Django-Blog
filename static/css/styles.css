@@ -2,6 +2,7 @@ body {
   font-family: Arial;
   padding: 20px;
   background: #ddd;
+  background-image: url(../image/back.png);
 }
 
 .navbar-btn{
@@ -31,6 +32,7 @@ body {
   background: white;
   padding: 10px;
   border-radius: 10px;
+
 }
 .card-header{
   margin-bottom: 5px;
@@ -41,6 +43,7 @@ body {
   text-align: center;
   background: white;
   margin-top: 20px;
+
 }
 
 .card-text{
@@ -68,6 +71,7 @@ body {
 }
 .reply{
     margin-left: 40px;
+    margin-top: 20px;
 }
 .profile-image{
    max-width: 100%;

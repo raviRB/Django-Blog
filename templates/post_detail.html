@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
 <li><a href="{%  url 'all_post' blog_admin %}">All Posts </a></li>
 <li class="active"><a href="#">Post</a></li>
 {% endblock %}
@@ -14,7 +14,7 @@
             <h3 class="card-title">{{ post.title }}</h3>
             <h6 class="card-subtitle mb-2 text-muted">{{ post.created_on }}</h6>
             <h6 class="card-subtitle mb-2 text-muted"> last edited : - {{ post.updated_on }}</h6>
-            <p >{{ post.body }}</p>
+            <p>{{ post.body }}</p>
         </div>
     </div>
 </div>
@@ -24,37 +24,44 @@
 {% block row_2 %}
 
 {% for comment in post.comment.all %}
-<div class="card" >
-  <div class="card-body">
-      <h5 class="card-title"><strong>{{ comment.user_name }}</strong> says...</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on }}</h6>
-    <p class="comment_text">{{ comment.message }}</p>
-      <p class="replyButton" align="right"><a  class="btn btn-default" onclick="reply({{ comment.pk }})" >Reply</a></p>
-  </div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><strong>{{ comment.user_name }}</strong> says...</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on }}</h6>
+        <p class="comment_text">{{ comment.message }}</p>
+        <p class="replyButton" align="right"><a class="btn btn-default" onclick="reply({{ comment.pk }})">Reply</a></p>
+    </div>
 </div>
-<form  action="{%  url 'comment_reply' blog_admin comment.pk %}" method="post" novalidate style="display: none" id="{{ comment.pk }}" class="reply" name="reply-form">
+<form action="{%  url 'comment_reply' blog_admin comment.pk %}" method="post" novalidate style="display: none"
+      id="{{ comment.pk }}" class="reply" name="reply-form">
     {% csrf_token %}
+    <div class="messages " style="margin: 10px; ">
+        {% for message in messages %}
+        <span class="alert alert-danger">{{ message }}</span>
+        {% endfor %}
+    </div>
     {% for field in reply_form %}
-      <div class="form-group">
+
+    <div class="form-group">
 
         {% render_field field class="form-control" %}
 
         {% if field.help_text %}
-          <small class="form-text text-muted">
+        <small class="form-text text-muted">
             {{ field.help_text }}
-          </small>
+        </small>
         {% endif %}
-      </div>
+    </div>
     {% endfor %}
     <button type="submit" class="btn btn-success" name="reply">Reply</button>
 </form>
 {% for reply in comment.reply.all %}
-<div class="card reply" >
-  <div class="card-body">
-      <h5 class="card-title"><strong>{{ reply.user_name }}</strong> replied...</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ reply.created_on }}</h6>
-    <p class="comment_text">{{ reply.message }}</p>
-  </div>
+<div class="card reply">
+    <div class="card-body">
+        <h5 class="card-title"><strong>{{ reply.user_name }}</strong> replied...</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ reply.created_on }}</h6>
+        <p class="comment_text">{{ reply.message }}</p>
+    </div>
 </div>
 {% endfor %}
 {% endfor %}
@@ -64,37 +71,37 @@
 </div>
 
 <form method="post" novalidate>
-  {% csrf_token %}
+    {% csrf_token %}
 
-  {% for field in form %}
+    {% for field in form %}
     <div class="form-group">
-      {{ field.label_tag }}
+        {{ field.label_tag }}
 
-      {% if form.is_bound %}
+        {% if form.is_bound %}
         {% if field.errors %}
 
-          {% render_field field class="form-control is-invalid" %}
-          {% for error in field.errors %}
-            <div class="invalid-feedback">
-              {{ error }}
-            </div>
-          {% endfor %}
+        {% render_field field class="form-control is-invalid" %}
+        {% for error in field.errors %}
+        <div class="invalid-feedback">
+            {{ error }}
+        </div>
+        {% endfor %}
 
         {% else %}
-          {% render_field field class="form-control is-valid" %}
+        {% render_field field class="form-control is-valid" %}
         {% endif %}
-      {% else %}
+        {% else %}
         {% render_field field class="form-control" %}
-      {% endif %}
+        {% endif %}
 
-      {% if field.help_text %}
+        {% if field.help_text %}
         <small class="form-text text-muted">
-          {{ field.help_text }}
+            {{ field.help_text }}
         </small>
-      {% endif %}
+        {% endif %}
     </div>
-  {% endfor %}
+    {% endfor %}
 
-  <button type="submit" class="btn btn-success">Post</button>
+    <button type="submit" class="btn btn-success">Post</button>
 </form>
 {% endblock %}

@@ -14,7 +14,7 @@ class Posts(models.Model):
 
 class Comments(models.Model):
     user_name = models.CharField(max_length=100, null=False)
-    email = models.CharField(max_length=100, null=False)
+    email = models.EmailField(max_length=100, null=False)
     message = models.CharField(max_length=1000, null=False)
     created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Posts, related_name='comment', on_delete=models.CASCADE)
@@ -24,7 +24,7 @@ class Comments(models.Model):
 
 class Reply(models.Model):
     user_name = models.CharField(max_length=100, null=False)
-    email = models.CharField(max_length=100, null=False)
+    email = models.EmailField(max_length=100, null=False)
     message = models.CharField(max_length=1000, null=False)
     created_on = models.DateTimeField(auto_now_add=True)
     comment = models.ForeignKey(Comments, related_name='reply', on_delete=models.CASCADE)
@@ -51,7 +51,7 @@ class User_Profile(models.Model):
     about_user = models.CharField(max_length=254, null=False)
     blog_name = models.CharField(max_length=254, null=False)
     profile_link = models.CharField(max_length=254, null=False)
-    profile_pic = models.ImageField(upload_to="profile_picture/",blank=True)
+    profile_pic = models.ImageField(upload_to="profile_picture/",blank=True , default='default/avatar.png')
 
     def __str__(self):
         return self.username + " " + str(self.pk)

@@ -16,5 +16,5 @@ urlpatterns = [
     re_path('^(?P<user>\w+)/setting/$', views.setting ,name="settings"),
     re_path('^user/signup/$', views.signup, name='signup'),
     re_path('^user/logout/$', views.logout_user , name='logout'),
-    re_path('^user/login/$', views.user_login, name='login'),
+    re_path('^$', views.home, name='home'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

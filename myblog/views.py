@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import render, redirect
-from .models import Posts, Comments, Reply
+from .models import Posts, Comments, Reply, User_Profile
 from .forms import NewPostForm, NewCommentForm, NewReplyForm, AccountDetail, SignUpForm, AdminLogin
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404
@@ -72,7 +72,7 @@ def all_post(request,user):
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 
 def comment(request,comment_id,user):
@@ -95,34 +95,25 @@ def setting(request,user):
         form = AccountDetail(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
-            if not profile.profile_pic:
+            if len(request.FILES) == 0:
                 profile.profile_pic = user_detail.profile_pic
             else:
                 user_detail.profile_pic.delete()
             profile.user = user_detail.user
+            profile.password = user_detail.password
             profile.pk = user_detail.pk
             profile.save(force_update=True)
             return redirect('first_page', user=user)
 
-        else:
-            all_posts = blog_admin.my_post.all()
-            form = AccountDetail(initial={'email': user_detail.email, 'username': user_detail.username,
-                                          'about_user': user_detail.about_user,
-                                          'blog_name': user_detail.blog_name,
-                                          'profile_link': user_detail.profile_link,
-                                          'profile_pic': user_detail.profile_pic})
-            return render(request, 'setting.html',
-                          {'all_posts': all_posts, 'user_detail': user_detail, 'form': form , 'blog_admin':user})
-
     else:
-        all_posts = blog_admin.my_post.all()
         form = AccountDetail(
             initial={'email': user_detail.email, 'username': user_detail.username, 'about_user': user_detail.about_user,
                      'blog_name': user_detail.blog_name,
                      'profile_link': user_detail.profile_link,
                      'profile_pic': user_detail.profile_pic})
-        return render(request, 'setting.html',
-                      {'all_posts': all_posts, 'user_detail': user_detail, 'form': form, 'blog_admin':user})
+    all_posts = blog_admin.my_post.all()
+    return render(request, 'setting.html',
+                  {'all_posts': all_posts, 'user_detail': user_detail, 'form': form, 'blog_admin': user})
 
 
 def edit_post(request,post_id,user):
@@ -187,7 +178,10 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def user_login(request):
+def home(request):
+    profiles = User_Profile.objects.all()
+    if request.user.is_authenticated:
+        return redirect('first_page', request.user.username)
     if request.method =="POST":
         form = AdminLogin(request.POST)
         if form.is_valid():
@@ -201,4 +195,4 @@ def user_login(request):
                 messages.warning(request, 'Invalid Username or Password', extra_tags='alert')
     else:
         form = AdminLogin()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'home.html', {'form': form , 'profiles':profiles})

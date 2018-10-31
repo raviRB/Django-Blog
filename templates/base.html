@@ -22,6 +22,8 @@
                      <a class="btn btn-default" href="{%  url 'settings' user.username %}">Setting</a>
                      <a class="btn btn-default" href="{%  url 'new_post' user.username %}">New Post</a>
                      <a class="btn btn-default" href="{%  url 'logout' %}">Logout</a>
+				{% else %}
+					<a class="btn btn-default" href="{%  url 'home' %}">Login</a>
               {% endif %}
               {% endblock %}
 		  </div>
@@ -67,9 +69,6 @@
             </div>
 		</div>
         {% endblock container-body %}
-	</div>
-	<div class="footer">
-  		<h4>Developed By :- Ravi Bhatt</h4>
 	</div>
 <script src="{% static 'js/script.js' %}"></script>
 </body>

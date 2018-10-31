@@ -15,7 +15,7 @@ class NewPostForm(forms.ModelForm):
 
 class NewCommentForm(forms.ModelForm):
     message = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Write your message here ...'}), max_length=1000)
-    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email Address'}), max_length=100)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email Address'}), max_length=100)
     user_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Full Name'}), max_length=100)
 
     class Meta:
@@ -24,7 +24,7 @@ class NewCommentForm(forms.ModelForm):
 
 class NewReplyForm(forms.ModelForm):
     message = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Write your message here ...'}), max_length=1000)
-    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Email Address'}), max_length=100)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email Address'}), max_length=100)
     user_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Full Name'}), max_length=100)
 
     class Meta:
@@ -37,10 +37,10 @@ class AdminLogin(forms.Form):
 
 
 class AccountDetail(forms.ModelForm):
-
+    profile_pic = forms.ImageField(widget=forms.FileInput, required=False)
     class Meta:
         model = User_Profile
-        fields = ('username', 'email', 'password', 'about_user', 'profile_link', 'blog_name', 'profile_pic')
+        fields = ('username', 'email', 'about_user', 'profile_link', 'blog_name', 'profile_pic')
 
 
 class SignUpForm(forms.ModelForm):

@@ -29,3 +29,7 @@ body {
     justify-content: center;
 
 }
+
+.alert{
+    padding: 5px;
+}

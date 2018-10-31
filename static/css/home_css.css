@@ -1,0 +1,59 @@
+.logo{
+padding-top : 20px;
+padding-bottom : 10px;
+padding-right: 40px;
+}
+
+.login_form {
+margin-right : 40px;
+margin-left: 50px;
+}
+
+.card_profile{
+ width : 80%;
+ padding: 10px;
+}
+
+.profile-image{
+   width: 100%;
+   height: 110px;
+   padding: 0px;
+   margin: 0px;
+}
+
+.card-body{
+padding: 0px;
+}
+
+.card-image{
+padding: 0px;
+ }
+
+.users_profile{
+    max-height: 450px;
+    overflow: auto;
+}
+
+.top_bloggers{
+   text-align: center;
+   margin: 0px;
+   margin-bottom: 10px;
+}
+
+.navbar-header {
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+.navbar-brand {
+float:none;
+padding: 0px;
+color : white;
+}
+
+h3{
+margin-top: 10px;
+}
+.alert{
+    padding: 5px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/home_css.css' %}">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-primary justify-content-between">
+        <div class="navbar-header">
+            <a class="navbar-brand"><h3>Django Blogs</h3></a>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 ">
+            <h3 class="top_bloggers">Top Bloggers</h3>
+            <div class="users_profile">
+                {% for profile in profiles %}
+                <div class="container card_profile">
+                    <div class="row user_profile_row">
+                        <div class="col-sm-8 card-body">
+                            <h5 class="card-title">{{ profile.username }}</h5>
+                            <p class="card-text">{{ profile.about_user }}</p>
+                            <a href="{% url 'first_page' profile.username %}" class="btn btn-primary">Visit Blog </a>
+                        </div>
+                        <div class="col-sm-4 card-image">
+                            <img class="card-img-top profile-image" src="{{ profile.profile_pic.url }}"
+                                 alt="Card image cap">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
+            <h3 class="text-center logo my-4">Log in</h3>
+            <form class="login_form" method="post" novalidate>
+                {% csrf_token %}
+                {% include 'form.html' %}
+                <button type="submit" class="btn btn-success" name="reply">Log In</button>
+            </form>
+            <div class="card-footer text-muted text-center">
+                New to Django Boards? <a href="{% url 'signup' %}">Sign up</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

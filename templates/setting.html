@@ -9,70 +9,68 @@
 {% endblock %}
 
 {% block navbar_left %}
-<li ><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
+<li><a href="{%  url 'first_page' blog_admin %}">Home</a></li>
 <li class="active"><a href="#">Setting </a></li>
 {% endblock %}
 
 {% block container-body %}
-    <div class="row">
-        <div class="col-lg-9 col-md-9">
-            <form method="post" novalidate class="setting-form" enctype="multipart/form-data" >
-                {% csrf_token %}
-                 {% for field in form %}
-                    <div class="form-group">
-                      {{ field.label_tag }}
+<div class="row">
+    <div class="col-lg-9 col-md-9">
+        <form method="post" novalidate class="setting-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if messages %}
+            <div class="messages " style="margin: 10px; ">
+                {% for message in messages %}
+                <span class="alert alert-danger">{{ message }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
 
-                      {% if form.is_bound %}
-                        {% if field.errors %}
+                {% render_field field class="form-control" %}
 
-                          {% render_field field class="form-control is-invalid" %}
-                          {% for error in field.errors %}
-                            <div class="invalid-feedback">
-                              {{ error }}
-                            </div>
-                          {% endfor %}
+                {% if field.help_text %}
+                <small class="form-text text-muted">
+                    {{ field.help_text }}
+                </small>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
 
-                        {% else %}
-                          {% render_field field class="form-control is-valid" %}
-                        {% endif %}
-                      {% else %}
-                        {% render_field field class="form-control" %}
-                      {% endif %}
+            <button type="submit" class="btn btn-success" name="comment">Make Changes</button>
+        </form>
+    </div>
 
-                      {% if field.help_text %}
-                        <small class="form-text text-muted">
-                          {{ field.help_text }}
-                        </small>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-
-                <button type="submit" class="btn btn-success" name="comment">Make Changes</button>
-            </form>
+    <div class="col-lg-3 col-md-3">
+        <div class="card " style="margin-top:0px">
+            <div class="card-body">
+                {% if user_detail.profile_pic %}
+                <img class=" profile-image" src="{{ user_detail.profile_pic.url }}">
+                {% endif %}
+                <h5 class="card-title"><strong>About </strong></h5>
+                <p class="card-text">{{ user_detail.about_user }}</p>
+                <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
+            </div>
         </div>
-
-			<div class="col-lg-3 col-md-3">
-				<div class="card " style="margin-top:0px">
-				  <div class="card-body">
-                    {% if user_detail.profile_pic %}
-                      <img class=" profile-image" src="{{ user_detail.profile_pic.url }}" >
-                      {% endif %}
-				    <h5 class="card-title"><strong>About </strong></h5>
-				    <p class="card-text">{{ user_detail.about_user }}</p>
-				    <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
-				  </div>
-				</div>
-				<div class="card">
-				  <div class="card-header">
-				    <strong>All Posts</strong>
-				  </div>
-                  <h6 class="card-subtitle mb-2 text-muted">Click on the post heading to update it </h6>
-				  <ul class="list-group list-group-flush">
-				    {% for post in all_posts %}
-                    <li class="list-group-item"><a href="{%  url 'edit_post' blog_admin post.pk %}">{{ post.title }}</a></li>
-                    {% endfor %}
-				  </ul>
-				</div>
-			</div>
-		</div>
-        {% endblock container-body %}
+        <div class="card">
+            <div class="card-header">
+                <strong>All Posts</strong>
+            </div>
+            <h6 class="card-subtitle mb-2 text-muted">Click on the post heading to update it </h6>
+            <ul class="list-group list-group-flush">
+                {% for post in all_posts %}
+                <li class="list-group-item"><a href="{%  url 'edit_post' blog_admin post.pk %}">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock container-body %}
