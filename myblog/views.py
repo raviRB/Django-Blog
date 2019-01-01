@@ -58,7 +58,7 @@ def specific_post(request , post_id,user):
             comment = form.save(commit=False)
             comment.post = requested_post
             comment.save()
-            return redirect('specific_post',post_id=post_id, blog_admin=user)
+            return redirect('specific_post',post_id=post_id, user=user)
 
     return render(request, 'post_detail.html', {'post': requested_post, 'all_posts': all_posts ,'form':form ,'user_detail':user_detail ,'reply_form':reply_form ,'blog_admin':user})
 
@@ -172,7 +172,7 @@ def signup(request):
                 user.save()
                 data.user = user
                 data.save()
-                return redirect('login')
+                return redirect('first_page',user=user)
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
