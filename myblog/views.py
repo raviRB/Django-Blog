@@ -31,7 +31,7 @@ def first_page(request,user):
 
 def new_post(request,user):
     if not request.user.is_authenticated:
-        return  redirect('login' )
+        return  redirect('home' )
     user_detail = request.user.profile
     if request.method =="POST":
         form = NewPostForm(request.POST)
@@ -88,7 +88,7 @@ def comment(request,comment_id,user):
 
 def setting(request,user):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('home')
     blog_admin = request.user
     user_detail = blog_admin.profile
     if request.method == "POST":
@@ -107,7 +107,7 @@ def setting(request,user):
 
     else:
         form = AccountDetail(
-            initial={'email': user_detail.email, 'username': user_detail.username, 'about_user': user_detail.about_user,
+            initial={'email': user_detail.email, 'full_name': user_detail.full_name, 'about_user': user_detail.about_user,
                      'blog_name': user_detail.blog_name,
                      'profile_link': user_detail.profile_link,
                      'profile_pic': user_detail.profile_pic})
@@ -118,7 +118,7 @@ def setting(request,user):
 
 def edit_post(request,post_id,user):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('home')
     blog_admin = request.user
     user_detail = blog_admin.profile
     post = blog_admin.my_post.get(pk=post_id)
@@ -126,11 +126,12 @@ def edit_post(request,post_id,user):
         form = NewPostForm(request.POST)
         if form.is_valid():
             my_post = form.save(commit=False)
+            my_post.user = blog_admin
             my_post.pk = post_id
             my_post.created_on = post.created_on
             my_post.updated_on = datetime.now()
             my_post.save(force_update=True)
-        return redirect('first_page', user=user)
+        return redirect('first_page', user=blog_admin)
     else:
         form = NewPostForm(initial={'title': post.title, 'body': post.body})
         return render(request, 'edit_post.html', {'form': form, 'post': post, 'user_detail': user_detail, 'blog_admin':user})
@@ -138,21 +139,21 @@ def edit_post(request,post_id,user):
 
 def delete_comment(request,comment_id,user):
     if not request.user.is_authenticated:
-        return redirect('first_page', user=user)
+        return redirect('home')
     Comments.objects.filter(id=comment_id).delete()
     return redirect(request.META['HTTP_REFERER'])
 
 
 def delete_reply(request,reply_id,user):
     if not request.user.is_authenticated:
-        return redirect('first_page', user=user)
+        return redirect('home')
     Reply.objects.filter(id=reply_id).delete()
     return redirect(request.META['HTTP_REFERER'])
 
 
 def delete_post(request,post_id,user):
     if not request.user.is_authenticated:
-        return redirect('first_page', user=user)
+        return redirect('home')
     Posts.objects.filter(id=post_id).delete()
     return redirect('settings')
 
@@ -165,6 +166,8 @@ def signup(request):
             a = int(User.objects.filter(username=data.username).count())
             if a > 0:
                 messages.warning(request, 'Username already exists', extra_tags='alert')
+            elif " " in data.username:
+                messages.warning(request, 'Please do not include spaces ', extra_tags='alert')
             else:
                 user = User.objects.create_user(username=data.username,
                                                 email=data.email,

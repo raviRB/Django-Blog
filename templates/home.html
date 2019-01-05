@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Django-Blogs</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="{% static 'css/home_css.css' %}">
 </head>
@@ -24,7 +24,7 @@
                 <div class="container card_profile">
                     <div class="row user_profile_row">
                         <div class="col-sm-8 card-body">
-                            <h5 class="card-title">{{ profile.username }}</h5>
+                            <h5 class="card-title">{{ profile.full_name }}</h5>
                             <p class="card-text">{{ profile.about_user }}</p>
                             <a href="{% url 'first_page' profile.username %}" class="btn btn-primary">Visit Blog </a>
                         </div>
