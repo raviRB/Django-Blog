@@ -7,6 +7,7 @@ from django.http import Http404
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.models import User
+import re
 
 # user object define the username of the blog admin
 # requrest.user is the user who requested for the page
@@ -97,9 +98,8 @@ def setting(request,user):
             profile = form.save(commit=False)
             if len(request.FILES) == 0:
                 profile.profile_pic = user_detail.profile_pic
-            else:
-                user_detail.profile_pic.delete()
             profile.user = user_detail.user
+            profile.username  = user_detail.username
             profile.password = user_detail.password
             profile.pk = user_detail.pk
             profile.save(force_update=True)
@@ -113,7 +113,7 @@ def setting(request,user):
                      'profile_pic': user_detail.profile_pic})
     all_posts = blog_admin.my_post.all()
     return render(request, 'setting.html',
-                  {'all_posts': all_posts, 'user_detail': user_detail, 'form': form, 'blog_admin': user})
+                  {'all_posts': all_posts, 'user_detail': user_detail, 'form': form, 'blog_admin': user })
 
 
 def edit_post(request,post_id,user):
@@ -155,7 +155,7 @@ def delete_post(request,post_id,user):
     if not request.user.is_authenticated:
         return redirect('home')
     Posts.objects.filter(id=post_id).delete()
-    return redirect('settings')
+    return redirect('first_page', user=user)
 
 
 def signup(request):
@@ -167,7 +167,9 @@ def signup(request):
             if a > 0:
                 messages.warning(request, 'Username already exists', extra_tags='alert')
             elif " " in data.username:
-                messages.warning(request, 'Please do not include spaces ', extra_tags='alert')
+                messages.warning(request, 'Please do not include spaces in Username', extra_tags='alert')
+            elif re.match('^[\w]+$', data.username) is None:
+                messages.warning(request, 'Username can contain only alphanumeric characters (0-9,a-z)', extra_tags='alert')
             else:
                 user = User.objects.create_user(username=data.username,
                                                 email=data.email,
@@ -199,3 +201,9 @@ def home(request):
     else:
         form = AdminLogin()
     return render(request, 'home.html', {'form': form , 'profiles':profiles})
+
+
+def delete_account(request,user):
+    u = User.objects.get(username=user)
+    u.delete()
+    return redirect('home')

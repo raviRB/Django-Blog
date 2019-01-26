@@ -48,7 +48,7 @@ class SignUpForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
     username = forms.CharField( help_text='Do not use spaces  ')
-    profile_link = forms.CharField(help_text='Link to social networking profile - Linkedin/Facebook')
+    profile_link = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'eg - https://www.linkedin.com/in/ravi-bhatt-883640131/'}), help_text='Link to social networking profile - Linkedin/Facebook')
     about_user = forms.CharField(strip=False)
 
     class Meta:

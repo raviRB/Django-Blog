@@ -45,7 +45,7 @@
                     {% if user_detail.profile_pic %}
                       <img class=" profile-image" src="{{ user_detail.profile_pic.url }}" >
                       {% endif %}
-				    <h5 class="card-title"><strong>About </strong></h5>
+				    <h5 class="card-title"><strong>{{ user_detail.full_name }} </strong></h5>
 				    <p class="card-text">{{ user_detail.about_user }}</p>
 				    <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
 				  </div>

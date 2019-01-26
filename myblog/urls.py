@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     re_path('^(?P<user>\w+)/$', views.first_page ,name="first_page"),
+    re_path('^(?P<user>\w+)/Remove_User/$', views.delete_account , name='delete_account'),
     re_path(r'^(?P<user>\w+)/post/(?P<post_id>\d+)/$', views.specific_post ,name="specific_post"),
     re_path(r'^(?P<user>\w+)/post/comment/reply/(?P<comment_id>\d+)/$', views.comment ,name="comment_reply"),
     re_path('^(?P<user>\w+)/new_post/$', views.new_post ,name="new_post"),

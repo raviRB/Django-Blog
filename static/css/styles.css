@@ -80,3 +80,16 @@ body {
    margin: 0px;
 
 }
+p{
+    word-wrap: break-word;
+}
+pre{
+    background-color: white;
+    border: 0px;
+    word-wrap: break-word;
+}
+.mytextarea{
+ width: 100%;
+ border: 0px;
+ min-height: 400px;
+}

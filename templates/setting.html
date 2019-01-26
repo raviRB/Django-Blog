@@ -45,6 +45,8 @@
             {% endfor %}
 
             <button type="submit" class="btn btn-success" name="comment">Make Changes</button>
+            <span ><a  class="btn btn-danger" href="{%  url 'delete_account' blog_admin  %} ">Delete Account</a></span>
+            <p><br>Note : Deleting account will remove your account permanently , there is no way to revert this ..</p>
         </form>
     </div>
 
@@ -54,7 +56,7 @@
                 {% if user_detail.profile_pic %}
                 <img class=" profile-image" src="{{ user_detail.profile_pic.url }}">
                 {% endif %}
-                <h5 class="card-title"><strong>About </strong></h5>
+                <h5 class="card-title"><strong>{{ user_detail.full_name }} </strong></h5>
                 <p class="card-text">{{ user_detail.about_user }}</p>
                 <a href={{user_detail.profile_link}} class="card-link btn btn-default" target="_blank">Profile</a>
             </div>
