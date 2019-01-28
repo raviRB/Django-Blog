@@ -93,3 +93,9 @@ pre{
  border: 0px;
  min-height: 400px;
 }
+.mytextarea-home{
+ width: 100%;
+ border: 0px;
+resize: none;
+
+}
